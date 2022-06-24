@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    $data['users'] = User::where('id','!=',Auth::id())->inRandomOrder()->limit(8)->get();
+    return view('home.index',$data);
+});
+
+Route::get('/dashboard', function () {
     return view('admin.home');
 });
 
